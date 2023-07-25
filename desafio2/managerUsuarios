@@ -1,0 +1,108 @@
+const fs = require("fs")
+
+class ProductManager {
+  #products = []
+  #idProduct = 0
+
+  constructor() {
+    this.#products= []
+    this.#idProduct = 0
+  }
+
+  async getProducts() {
+    return this.#readProductsFile()
+  }
+
+  async addProduct(title, description, price, thumbnail, code, stock) {
+    if (!title || !description || !price || !thumbnail || !code || !stock) {
+      console.log("Todos los campos son obligatorios")
+      return
+    }
+
+    const existingProduct = await this.#productsExists(code)
+    if (existingProduct) {
+      console.log("El code ya esta en uso")
+      return
+    }
+
+    this.#idProduct++
+    const newProduct = {
+      id: this.#idProduct,
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock
+    }
+
+    const products = await this.#readProductsFile()
+    products.push(newProduct)
+
+    await this.#writeProductsFile(products)
+    console.log("Producto agregado")
+  }
+
+  async getProductById(idProduct) {
+    const products = await this.#readProductsFile()
+    const product = products.find(p => p.id === idProduct)
+    if (product) {
+      console.log("Producto encontrado")
+      return product
+    } else {
+      console.log("No se encontro el producto")
+      return null
+    }
+  }
+
+  async updateProduct(idProduct, updatedFields) {
+    const products = await this.#readProductsFile();
+    const productIndex = products.findIndex((p) => p.id === idProduct);
+
+    if (productIndex === -1) {
+      console.log("No se encontró el producto");
+      return;
+    }
+
+    products[productIndex] = { ...products[productIndex], ...updatedFields };
+    await this.#writeProductsFile(products);
+
+    console.log("Producto actualizado exitosamente");
+  }
+
+  async deleteProduct(idProduct) {
+    const products = await this.#readProductsFile();
+    const filteredProducts = products.filter((p) => p.id !== idProduct);
+
+    if (products.length === filteredProducts.length) {
+      console.log("No se encontró el producto");
+      return;
+    }
+
+    await this.#writeProductsFile(filteredProducts);
+
+    console.log("Producto eliminado exitosamente");
+  }
+
+  async #productsExists(code) {
+    const products = await this.#readProductsFile();
+    return products.some((p) => p.code === code);
+  }
+
+  async #readProductsFile() {
+    if (fs.existsSync("./desafio2/fileProducts.json")) {
+      const data = await fs.promises.readFile("./desafio2/fileProducts.json", "utf-8");
+      return JSON.parse(data);
+    }
+    return [];
+  }
+
+  async #writeProductsFile(products) {
+    await fs.promises.writeFile(
+      "./desafio2/fileProducts.json",
+      JSON.stringify(products, null, 2)
+    );
+  }
+}
+
+module.exports = ProductManager

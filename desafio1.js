@@ -10,20 +10,6 @@ class ProductManager {
     return this.#products
   }
 
-  // addProduct(title, description, price, thumbnail, code, stock) {
-  //   this.#idProduct++
-  //   const newProduct = {
-  //     id: this.#idProduct,
-  //     title: title = "producto prueba",
-  //     description: description = "Este es un producto prueba",
-  //     price: price = 200,
-  //     thumbnail: thumbnail = "Sin imagen",
-  //     code: code = "abc123",
-  //     stock: stock = 25
-  //   }
-  //   this.#product.push(newProduct)
-  // }
-
   addProduct(title, description, price, thumbnail, code, stock) {
     if (!title || !description || !price || !thumbnail || !code || !stock) {
       console.log("Todos los campos son obligatorios")
@@ -58,10 +44,6 @@ class ProductManager {
     }
   }
 }
-
-// const product1 = new ProductManager()
-// product1.addProduct()
-// console.log(product1.getProduct())
 
 const product2= new ProductManager()
 product2.addProduct("producto", "descripcion producto", 25, "no imagen", 123, 25)
