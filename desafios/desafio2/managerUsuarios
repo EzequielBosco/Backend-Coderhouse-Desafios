@@ -1,4 +1,5 @@
 const fs = require("fs")
+const path = require("path")
 
 class ProductManager {
   #idProduct = 0
@@ -88,18 +89,26 @@ class ProductManager {
   }
 
   async #readProductsFile() {
-    if (fs.existsSync("./desafio2/fileProducts.json")) {
-      const data = await fs.promises.readFile("./desafio2/fileProducts.json", "utf-8");
+    const filePath = path.join(__dirname, "fileProducts.json");
+
+    try {
+      const data = await fs.promises.readFile(filePath, "utf-8");
       return JSON.parse(data);
+    } catch (error) {
+      console.log("Error al leer el archivo de productos:", error.message);
+      return [];
     }
-    return [];
   }
 
   async #writeProductsFile(products) {
-    await fs.promises.writeFile(
-      "./desafio2/fileProducts.json",
-      JSON.stringify(products, null, 2)
-    );
+    const filePath = path.join(__dirname, "fileProducts.json");
+
+    try {
+      await fs.promises.writeFile(filePath, JSON.stringify(products, null, 2));
+      console.log("Archivo de productos actualizado exitosamente.");
+    } catch (error) {
+      console.log("Error al escribir en el archivo de productos:", error.message);
+    }
   }
 }
 

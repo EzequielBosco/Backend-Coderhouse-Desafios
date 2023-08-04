@@ -40,12 +40,12 @@ async function main() {
         product1.stock
     )
 
-    const updatedFields = {
-        price: 20,
-        stock: 25,
-    }
-    await productManager.updateProduct(0, updatedFields)
-    await productManager.deleteProduct(2)
+    // const updatedFields = {
+    //     price: 20,
+    //     stock: 25,
+    // }
+    // await productManager.updateProduct(0, updatedFields)
+    // await productManager.deleteProduct(2)
 
     try {
         const products = await productManager.getProducts()
@@ -53,6 +53,7 @@ async function main() {
     } catch (err) {
         console.log(err)
     }
+
 }
 
 main()

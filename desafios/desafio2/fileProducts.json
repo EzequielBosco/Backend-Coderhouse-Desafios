@@ -1,5 +1,14 @@
 [
   {
+    "id": 2,
+    "title": "Apple",
+    "description": "Nuevas velocidades de memoria",
+    "price": 60,
+    "thumbnail": "no image",
+    "code": "code1",
+    "stock": 10
+  },
+  {
     "id": 1,
     "title": "Samsung",
     "description": "Nuevas velocidades de procesamiento",
@@ -7,14 +16,5 @@
     "thumbnail": "no image",
     "code": "code",
     "stock": 12
-  },
-  {
-    "id": 1,
-    "title": "Apple",
-    "description": "Nuevas velocidades de memoria",
-    "price": 60,
-    "thumbnail": "no image",
-    "code": "code1",
-    "stock": 10
   }
 ]
