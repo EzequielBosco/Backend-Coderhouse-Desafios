@@ -1,0 +1,10 @@
+<h1>ADMIN ACCESO</h1>
+
+{{#if isAdmin}}
+    <h2>Hola {{ object.name }}</h2>
+{{else}}
+    <h2>Solo acceso a admin</h2>
+{{/if}}
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

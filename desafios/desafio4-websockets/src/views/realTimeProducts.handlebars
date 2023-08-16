@@ -1,0 +1,24 @@
+<h1>Listado de productos en vivo</h1>
+
+<h2>Crear producto</h2>
+<form action="/realTimeProducts" method="post" id="crear-producto">
+    <label>Nombre</label>
+    <input type="text" name="name" placeholder="Nombre del producto" required>
+    <label>Precio</label>
+    <input type="number" name="price" placeholder="Precio del producto" required>
+    <input type="submit" value="crear">
+</form>
+<div id="products">
+    {{#each products}}
+    <ul>
+        <label for="name">Nombre</label>
+        <li>{{ this.name }}</li>
+    
+        <label for="price">Precio</label>
+        <li>{{ this.price }}</li>
+    </ul>
+    {{/each}}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
